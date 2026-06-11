@@ -10,9 +10,15 @@ books.drop()
 # INSERT - documents avec structures différentes
 print("=== INSERT ===")
 books.insert_many([
-    {"title": "Dune", "author": "Frank Herbert", "year": 1965, "tags": ["sci-fi", "classic"]},
+    {
+        "title": "Dune", "author": "Frank Herbert",
+        "year": 1965, "tags": ["sci-fi", "classic"],
+    },
     {"title": "1984", "author": "George Orwell", "year": 1949},
-    {"title": "Foundation", "author": "Isaac Asimov", "year": 1951, "tags": ["sci-fi"], "series": "Foundation"}
+    {
+        "title": "Foundation", "author": "Isaac Asimov",
+        "year": 1951, "tags": ["sci-fi"], "series": "Foundation",
+    },
 ])
 print("3 documents insérés")
 
@@ -46,7 +52,9 @@ print("\n=== INDEX sur author ===")
 
 # Mesure SANS index (COLLSCAN)
 books.drop_indexes()
-explain_no_idx = books.find({"author": "George Orwell"}).explain("executionStats")
+explain_no_idx = (
+    books.find({"author": "George Orwell"}).explain("executionStats")
+)
 stage_no_idx = explain_no_idx["queryPlanner"]["winningPlan"]["stage"]
 ms_no_idx = explain_no_idx["executionStats"]["executionTimeMillis"]
 print(f"Sans index  → stage: {stage_no_idx}, temps: {ms_no_idx} ms")
