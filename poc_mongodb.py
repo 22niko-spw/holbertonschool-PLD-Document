@@ -1,6 +1,6 @@
 from pymongo import MongoClient, ASCENDING
 
-client = MongoClient("mongodb://host.docker.internal:27017/")
+client = MongoClient("mongodb://localhost:27017/")
 db = client["pld_db"]
 books = db["books"]
 
